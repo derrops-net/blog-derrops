@@ -1,0 +1,50 @@
+{
+    "took": 14,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 10000,
+            "relation": "gte"
+        },
+        "max_score": null,
+        "hits": []
+    },
+    "aggregations": {
+        "country": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 3187,
+            "buckets": [
+                {
+                    "key": "IT",
+                    "doc_count": 2371,
+                    "histogram": {
+                        "buckets": [
+                            {
+                                "key_as_string": "2024-04-15T00:00:00.000Z",
+                                "key": 1713139200000,
+                                "doc_count": 399,
+                                "avg_price": {
+                                    "value": 579.1077163619804
+                                }
+                            },
+                            {
+                                "key_as_string": "2024-04-22T00:00:00.000Z",
+                                "key": 1713744000000,
+                                "doc_count": 414,
+                                "avg_price": {
+                                    "value": 619.0692837295901
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
