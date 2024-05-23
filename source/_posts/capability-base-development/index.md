@@ -4,14 +4,83 @@ date: 2024-05-01 22:00:0
 tags:
 - software
 - architecture
+- saas
+- platform
 ---
 
 The basic premise of Capability Driven Development, (A Derrops Coined Term) is that:
 
-<span style="font-size:3em;">"Business Logic Should not Constrain Capability"</span>
+<span style="font-size:3em;">"Business Logic Should not Limit Built Capabilities"</span>
 
-It's good to first work with a working definitions of terms to break down this statement, here is a good short blog post about the difference between : [Service vs. Capability vs. Process](https://www.linkedin.com/pulse/service-vs-capability-process-daniel-dekkers/
-) 
+
+### The solution
+Ths situation: Business wants a new feature built, requiring new functionality/capability developed currently not existing in the in-house SAAS platform. Based off your experience, what exists currently, and resourcing, you come up with a solution. Your solution happens to contains *inherited functionality* which you didn't build, but is simply present in the way the code is developed, and components are wired. You don't see any issue with this, as there is no need to make use of the extra goodies packaged inside. The solution itself seems intuitive to you, as it seems to just flow with:
+
+ - not requiring invasive changes
+ - exceeds requirements
+ - can fit the solution
+
+### The response
+BUT! When you take it back to the business, they have a different line of thought. They don't like the approach because it exceeds requirements, it includes functionality which wasn't requested, you try and bring it back that just because the functionality is there, doesn't mean you will use it, but the non technical business owners see things differently, and sink your solution.
+
+### Explanation
+
+
+So what happened? Lets try and deconstruct what happens:
+
+{% mermaid %}
+pie title Solution
+    "OpenSource" : 25
+    "Build" : 50
+    "Exists" : 25
+{% endmermaid %}
+
+But really have 
+
+{% mermaid %}
+pie title Solution
+    "OpenSource" : 25
+    "Build" : 50
+    "Exists" : 25
+    "Requirements" : 25
+{% endmermaid %}
+
+
+
+
+{% mermaid %}
+flowchart TD
+    GatherRequirements --> SolutionDesign
+    SolutionDesign --> BusinessFeedback
+    BusinessFeedback --> CutSolution
+    CutSolution --> SolutionDesign
+    BusinessFeedback --> SolutionDesign
+    BusinessFeedback --> BinSolution
+    BinSolution --> SolutionDesign
+    BusinessFeedback --> Build
+{% endmermaid %}
+
+
+
+
+
+
+When a solution has a bunch of other features bundled outside of the scope of what has been set out, this is a great cause for concern. Why are we going to build or use something which does things outside of what we asked?
+
+The things is, for software developers we do this all the time, in the libraries or technologies we make use of. We usually are using only a small fraction of the library.
+
+
+
+
+
+
+
+
+Time and time again I find myself in a position whereby I am discussing the approach I plan to take building out a solution to meet a business need, but business beating it back because it is at least perceived to being beyond the scope of what is required, and wanting solution with the business constraints built into the functionality.
+
+
+
+
 
  - **Capability:** is the what we do
  - **Process:** is the how we do it (--> how a capability is executed)
@@ -44,7 +113,7 @@ public void deleteById(int id) {
 }
 ```
 
-Funnily enough there is a similiar question on StackOverflow [Spring Data: Override save method](https://stackoverflow.com/questions/13036159/spring-data-override-save-method) and lets look at what the OP ends up doing: 😉
+Funnily enough there is a similar question on StackOverflow [Spring Data: Override save method](https://stackoverflow.com/questions/13036159/spring-data-override-save-method) and lets look at what the OP ends up doing: 😉
 ![SO](/images/posts/capability-base-development/override-delete-method-post.png)
 
 Let's assume we do successfully provide our own `default` implementation of this method, and then the business comes along and says to us, we want to allow users to delete their own complaints if they accept one of our explanations.
@@ -118,3 +187,11 @@ We can also ask ourselves why there is no reusable Repository without the delete
 Cannot delete before 14 days have passed
 ```
 If we put this constraint into our `Repository` layer, and override the delete method, this again is a constraint going into the Repository Layer. This constraint should go into our `Service` layer as this is a business decision. That's not to say we might develop methods in the repository Layer to help meet business requirements. But we don't hinder a capability and change the delete function in the repository, because as soon as we do need to delete a record with less than 14 days, say a super admin. We will need to alter our Repository again, as we baked the 14 day constraint into the delete method.
+
+
+
+
+## Further Reading
+
+[Service vs. Capability vs. Process](https://www.linkedin.com/pulse/service-vs-capability-process-daniel-dekkers/)
+[Business Rule and Business Requirement — what is the difference?](https://medium.com/@myroslavazel/business-rule-and-business-requirement-what-is-the-difference-320bbc74fc5e)
