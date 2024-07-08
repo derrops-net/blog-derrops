@@ -6,6 +6,7 @@ tags:
 - opensearch
 - elasticsearch
 - typescript
+- javascript
 - opensearch-typescript
 ---
 
